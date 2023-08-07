@@ -31,7 +31,7 @@ function game() {
     console.log("\n");
     console.log(`
     Final Result
-    
+
     Victories: ${wins}
     Defeats: ${loss}
     Ties: ${ties}
@@ -56,36 +56,16 @@ function tie(playerSelection) {
 }
 
 function play(playerSelection, computerSelection) {
-    if (playerSelection == "Rock") {
-        if (computerSelection == "Paper") {
-            return defeat(playerSelection, computerSelection);
-        }
-        if (computerSelection == "Scissors") {
-            return victory(playerSelection, computerSelection);
-        }
 
+    if (playerSelection === computerSelection) {
         return tie(playerSelection);
     }
 
-    if (playerSelection == "Paper") {
-        if (computerSelection == "Rock") {
-            return victory(playerSelection, computerSelection);
-        }
-        if (computerSelection == "Scissors") {
-            return defeat(playerSelection, computerSelection);
-        }
-
-        return tie(playerSelection);
+    if (playerSelection === "Rock" && computerSelection === "Scissors"
+    || playerSelection === "Paper" && computerSelection === "Rock"
+    || playerSelection === "Scissors" && computerSelection === "Paper") {
+        return victory(playerSelection, computerSelection);
     }
 
-    if (playerSelection == "Scissors") {
-        if (computerSelection == "Rock") {
-            return defeat(playerSelection, computerSelection);
-        }
-        if (computerSelection == "Paper") {
-            return victory(playerSelection, computerSelection);
-        }
-
-        return tie(playerSelection);
-    }
+    return defeat(playerSelection, computerSelection);
 }
