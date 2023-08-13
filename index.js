@@ -103,7 +103,7 @@ function victory() {
     wins.setAttribute("id", "wins");
 
     const resDiv = document.querySelector(".result");
-    resDiv.appendChild(wins);
+    resDiv.insertAdjacentElement("afterbegin", wins);
   }
   wins.textContent = `Wins: ${victories}`;
 }
@@ -117,7 +117,7 @@ function defeat() {
     losses.setAttribute("id", "losses");
 
     const resDiv = document.querySelector(".result");
-    resDiv.appendChild(losses);
+    resDiv.insertAdjacentElement("beforeend", losses);
   }
   losses.textContent = `Losses: ${defeats}`;
 }
@@ -131,7 +131,7 @@ function tie() {
     tieDiv.setAttribute("id", "ties");
 
     const resDiv = document.querySelector(".result");
-    resDiv.appendChild(tieDiv);
+    resDiv.insertAdjacentElement("beforeend", tieDiv);
   }
   tieDiv.textContent = `Ties: ${ties}`;
 }
