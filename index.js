@@ -13,7 +13,7 @@ function getComputerChoice() {
   return compChoice;
 }
 
-const buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll(".move");
 
 buttons.forEach((button) => {
   button.addEventListener("click", (e) => {
@@ -24,6 +24,31 @@ buttons.forEach((button) => {
   });
 });
 
+function reset() {
+  victories = 0;
+  defeats = 0;
+  ties = 0;
+  totalGames = 0;
+
+  const lossDiv = document.querySelector("#losses");
+  const winDiv = document.querySelector("#wins");
+  const tieDiv = document.querySelector("#ties");
+  const gameOverDiv = document.querySelector("#gameOver");
+
+  if (lossDiv) {
+    lossDiv.parentNode.removeChild(lossDiv);
+  }
+  if (winDiv) {
+    winDiv.parentNode.removeChild(winDiv);
+  }
+  if (tieDiv) {
+    tieDiv.parentNode.removeChild(tieDiv);
+  }
+  if (gameOverDiv) {
+    gameOverDiv.parentNode.removeChild(gameOverDiv);
+  }
+}
+
 function gameOver() {
   let gameOver = document.querySelector("#gameOver");
 
@@ -33,10 +58,21 @@ function gameOver() {
 
     const footer = document.querySelector(".footer");
     footer.parentNode.insertBefore(gameOver, footer);
+
+    const gameEndDiv = document.createElement("div");
+    gameEndDiv.setAttribute("id", "gameEndDiv");
+    gameEndDiv.textContent = "GAME OVER";
+
+    const startOver = document.createElement("button");
+    startOver.setAttribute("id", "startOver");
+    startOver.textContent = "Reset?";
+
+    gameOver.appendChild(gameEndDiv);
+    gameOver.appendChild(startOver);
   }
 
-  const msg = "GAME OVER!";
-  gameOver.textContent = msg;
+  const resetButton = document.querySelector("#startOver");
+  resetButton.addEventListener("click", reset);
 }
 
 function game(playerSelection, computerSelection) {
