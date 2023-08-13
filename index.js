@@ -1,71 +1,101 @@
+let victories = 0;
+let defeats = 0;
+let ties = 0;
+
+let totalGames = 0;
+
 function getComputerChoice() {
-    let random = Math.floor(Math.random() * 3); // Generate a random number between 0 and 2
-    
-    let arr = ["Rock", "Paper", "Scissors"];
-    let compChoice = arr[random];
+  let random = Math.floor(Math.random() * 3); // Generate a random number between 0 and 2
 
-    return compChoice;
+  let arr = ["rock", "paper", "scissors"];
+  let compChoice = arr[random];
+
+  return compChoice;
+}
+
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    const playerSelection = e.currentTarget.id;
+    const computerSelection = getComputerChoice();
+
+    game(playerSelection, computerSelection);
+  });
+});
+
+function gameOver() {
+  let gameOver = document.querySelector("#gameOver");
+
+  if (!gameOver) {
+    gameOver = document.createElement("div");
+    gameOver.setAttribute("id", "gameOver");
+
+    const footer = document.querySelector(".footer");
+    footer.parentNode.insertBefore(gameOver, footer);
   }
-  
 
-function game() {
-    let wins = 0;
-    let loss = 0;
-    let ties = 0;
-    
-    for (let i = 0; i < 5; i++) {
-        let playerChoice = prompt("What is your Selection?\nRock, Paper, Scissors?");
-        playerChoice = playerChoice.slice(0, 1).toUpperCase() + playerChoice.slice(1).toLowerCase();
-        let computerChoice = getComputerChoice();
-        result = play(playerChoice, computerChoice);
-        if (result === 1) wins++;
-        if (result === -1) loss++;
-        if (result === 0) ties++;
-    }
-
-    let hasWon = "This game was a tie :)";
-
-    if (wins > loss) hasWon = "You have won the game!";
-    if (loss > wins) hasWon = "You have lost the game!";
-
-    console.log("\n");
-    console.log(`
-    Final Result
-
-    Victories: ${wins}
-    Defeats: ${loss}
-    Ties: ${ties}
-
-    ${hasWon}
-    `)
+  const msg = "GAME OVER!";
+  gameOver.textContent = msg;
 }
 
-function defeat(playerSelection, computerSelection) {
-    console.log(`You lost! ${computerSelection} beats ${playerSelection}.`)
-    return -1;
+function game(playerSelection, computerSelection) {
+  totalGames++;
+  if (totalGames > 5) {
+    return gameOver();
+  }
+
+  if (playerSelection === computerSelection) {
+    tie();
+  } else if (
+    (playerSelection === "rock" && computerSelection === "scissors") ||
+    (playerSelection === "paper" && computerSelection === "rock") ||
+    (playerSelection === "scissors" && computerSelection === "paper")
+  ) {
+    victory();
+  } else {
+    defeat();
+  }
 }
 
-function victory(playerSelection, computerSelection) {
-    console.log(`You win! ${playerSelection} beats ${computerSelection}.`)
-    return 1;
+function victory() {
+  victories++;
+  let wins = document.querySelector("#wins");
+
+  if (!wins) {
+    wins = document.createElement("div");
+    wins.setAttribute("id", "wins");
+
+    const resDiv = document.querySelector(".result");
+    resDiv.appendChild(wins);
+  }
+  wins.textContent = `Wins: ${victories}`;
 }
 
-function tie(playerSelection) {
-    console.log(`This was a tie! You both selected ${playerSelection}.`)
-    return 0;
+function defeat() {
+  defeats++;
+  let losses = document.querySelector("#losses");
+
+  if (!losses) {
+    losses = document.createElement("div");
+    losses.setAttribute("id", "losses");
+
+    const resDiv = document.querySelector(".result");
+    resDiv.appendChild(losses);
+  }
+  losses.textContent = `Losses: ${defeats}`;
 }
 
-function play(playerSelection, computerSelection) {
+function tie() {
+  ties++;
+  let tieDiv = document.querySelector("#ties");
 
-    if (playerSelection === computerSelection) {
-        return tie(playerSelection);
-    }
+  if (!tieDiv) {
+    tieDiv = document.createElement("div");
+    tieDiv.setAttribute("id", "ties");
 
-    if (playerSelection === "Rock" && computerSelection === "Scissors"
-    || playerSelection === "Paper" && computerSelection === "Rock"
-    || playerSelection === "Scissors" && computerSelection === "Paper") {
-        return victory(playerSelection, computerSelection);
-    }
-
-    return defeat(playerSelection, computerSelection);
+    const resDiv = document.querySelector(".result");
+    resDiv.appendChild(tieDiv);
+  }
+  tieDiv.textContent = `Ties: ${ties}`;
 }

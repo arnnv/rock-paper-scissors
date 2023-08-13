@@ -16,6 +16,9 @@ body {
   text-align: center;
   color: #778da9;
 }
+.header:hover {
+  color: #e0e1dd;
+}
 
 .container {
   display: flex;
@@ -38,6 +41,10 @@ button {
   font-size: 24px;
 }
 
+button:hover {
+  border: 2px solid #e0e1dd;
+}
+
 .footer {
   background-color: #0d1b2a;
   color: #e0e1dd;
@@ -45,4 +52,24 @@ button {
   font-size: 24px;
   font-weight: bold;
   padding: 20px;
+}
+
+.result {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.result > div {
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  border: 2px solid #0f4c75;
+  padding: 8px 16px;
+}
+
+#gameOver {
+  color: #bbe1fa;
+  font-size: 64px;
+  text-align: center;
 }
