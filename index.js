@@ -2,8 +2,6 @@ let victories = 0;
 let defeats = 0;
 let ties = 0;
 
-let totalGames = 0;
-
 function getComputerChoice() {
   let random = Math.floor(Math.random() * 3); // Generate a random number between 0 and 2
 
@@ -28,7 +26,6 @@ function reset() {
   victories = 0;
   defeats = 0;
   ties = 0;
-  totalGames = 0;
 
   const lossDiv = document.querySelector("#losses");
   const winDiv = document.querySelector("#wins");
@@ -76,8 +73,7 @@ function gameOver() {
 }
 
 function game(playerSelection, computerSelection) {
-  totalGames++;
-  if (totalGames > 5) {
+  if (victories === 5 || defeats === 5) {
     return gameOver();
   }
 
